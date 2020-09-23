@@ -5,7 +5,7 @@ import com.gildedrose.item.Item
 open class NormalItemUpdater : ItemUpdater {
 
     override fun updateSellIn(item: Item) {
-        decreaseSellIn(item)
+        --item.sellIn
     }
 
     override fun updateQuality(item: Item) {
@@ -16,18 +16,14 @@ open class NormalItemUpdater : ItemUpdater {
     }
 
     protected fun decreaseQuality(item: Item) {
-        if (item.quality > 0) {
+        if (item.quality > Item.QUALITY_MIN) {
             --item.quality
         }
     }
 
-    protected fun decreaseSellIn(item: Item) {
-        --item.sellIn
-    }
-
     protected fun increaseQuality(item: Item) {
-        if (item.quality < 50) {
-            item.quality++
+        if (item.quality < Item.QUALITY_MAX) {
+            ++item.quality
         }
     }
 

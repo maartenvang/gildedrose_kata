@@ -4,6 +4,11 @@ import com.gildedrose.item.Item
 
 class BackstagePassItemUpdater : NormalItemUpdater() {
 
+    private companion object {
+        private const val TEN_DAYS = 10
+        private const val FIVE_DAYS = 5
+    }
+
     /**
      * Backstage passes increase in quality:
      * - Quality increases by 1 every day if the sellIn day is >10 days
@@ -13,10 +18,10 @@ class BackstagePassItemUpdater : NormalItemUpdater() {
      */
     override fun updateQuality(item: Item) {
         increaseQuality(item)
-        if (item.sellIn < 10) {
+        if (item.sellIn < TEN_DAYS) {
             increaseQuality(item)
         }
-        if (item.sellIn < 5) {
+        if (item.sellIn < FIVE_DAYS) {
             increaseQuality(item)
         }
         if (item.sellIn < 0) {
