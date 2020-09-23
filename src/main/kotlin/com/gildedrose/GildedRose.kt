@@ -3,54 +3,56 @@ package com.gildedrose
 class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
-        for (i in items.indices) {
-            if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                if (items[i].quality > 0) {
-                    if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                        items[i].quality = items[i].quality - 1
+        items.forEach { item ->
+            if (item.name == "Aged Brie" || item.name == "Backstage passes to a TAFKAL80ETC concert") {
+                increaseValue(item)
+                if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+                    if (item.sellIn < 11) {
+                        increaseValue(item)
+                    }
+                    if (item.sellIn < 6) {
+                        increaseValue(item)
                     }
                 }
             } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1
-
-                    if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1
-                            }
-                        }
-                    }
+                if (item.name != "Sulfuras, Hand of Ragnaros") {
+                    decreaseQuality(item)
                 }
             }
 
-            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                items[i].sellIn = items[i].sellIn - 1
+            if (item.name != "Sulfuras, Hand of Ragnaros") {
+                decreaseSellIn(item)
             }
 
-            if (items[i].sellIn < 0) {
-                if (items[i].name != "Aged Brie") {
-                    if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].quality > 0) {
-                            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                                items[i].quality = items[i].quality - 1
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality
-                    }
+            if (item.sellIn < 0) {
+                if (item.name == "Aged Brie") {
+                    increaseValue(item)
                 } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1
+                    if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+                        item.quality = item.quality - item.quality
+                    } else {
+                        if (item.name != "Sulfuras, Hand of Ragnaros") {
+                            decreaseQuality(item)
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun decreaseQuality(item: Item) {
+        if (item.quality > 0) {
+            --item.quality
+        }
+    }
+
+    private fun decreaseSellIn(item: Item) {
+        item.sellIn = item.sellIn - 1
+    }
+
+    private fun increaseValue(item: Item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1
         }
     }
 
