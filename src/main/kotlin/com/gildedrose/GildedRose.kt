@@ -5,16 +5,16 @@ class GildedRose(var items: Array<Item>) {
     fun updateQuality() {
         items.forEach { item ->
             when (item.name) {
-                "Aged Brie" -> updateAgedBrieQuality(item)
-                "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality(item)
-                "Sulfuras, Hand of Ragnaros" -> updateSulfurasQuality(item)
-                "Conjured Mana Cake" -> updateConjuredQuality(item)
-                else -> updateNormalItemQuality(item)
+                "Aged Brie" -> updateAgedBrieItem(item)
+                "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassItem(item)
+                "Sulfuras, Hand of Ragnaros" -> updateLegendaryItem(item)
+                "Conjured Mana Cake" -> updateConjuredItem(item)
+                else -> updateNormalItem(item)
             }
         }
     }
 
-    private fun updateAgedBrieQuality(item: Item) {
+    private fun updateAgedBrieItem(item: Item) {
         increaseValue(item)
         decreaseSellIn(item)
 
@@ -23,7 +23,7 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun updateBackstagePassQuality(item: Item) {
+    private fun updateBackstagePassItem(item: Item) {
         increaseValue(item)
         if (item.sellIn < 11) {
             increaseValue(item)
@@ -37,7 +37,7 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun updateConjuredQuality(item: Item) {
+    private fun updateConjuredItem(item: Item) {
         decreaseQuality(item)
         decreaseQuality(item) // Conjured items degrade in quality twice as fast as normal items
         decreaseSellIn(item)
@@ -46,7 +46,7 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun updateNormalItemQuality(item: Item) {
+    private fun updateNormalItem(item: Item) {
         decreaseQuality(item)
         decreaseSellIn(item)
         if (item.sellIn < 0) {
@@ -54,8 +54,8 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun updateSulfurasQuality(item: Item) {
-        // No-op: Sulfuras items do not degrade in quality and their sellIn date does not change.
+    private fun updateLegendaryItem(item: Item) {
+        // No-op: Legendary items do not degrade in quality and their sellIn date does not change.
     }
 
     private fun decreaseQuality(item: Item) {
