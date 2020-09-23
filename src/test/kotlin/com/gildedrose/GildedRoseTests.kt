@@ -116,22 +116,22 @@ internal class GildedRoseTests {
         assertEquals(0, gildedRose.items.first().quality)
     }
 
-//    @Test
-//    fun `"Conjured" items degrade in Quality twice as fast as normal items`() {
-//        val items = arrayOf(Item("Conjured mana cake", 5, 3))
-//        val gildedRose = GildedRose(items)
-//
-//        gildedRose.updateQuality() // Quality should go down by 2 instead of 1
-//        assertEquals(4, gildedRose.items.first().sellIn)
-//        assertEquals(1, gildedRose.items.first().quality)
-//
-//        gildedRose.updateQuality() // Quality should go down by 2 instead of 1, but not dip below zero
-//        assertEquals(3, gildedRose.items.first().sellIn)
-//        assertEquals(0, gildedRose.items.first().quality)
-//    }
+    @Test
+    fun `"Conjured" items degrade in Quality twice as fast as normal items`() {
+        val items = arrayOf(Item("Conjured Mana Cake", 5, 3))
+        val gildedRose = GildedRose(items)
+
+        gildedRose.updateQuality() // Quality should go down by 2 instead of 1
+        assertEquals(4, gildedRose.items.first().sellIn)
+        assertEquals(1, gildedRose.items.first().quality)
+
+        gildedRose.updateQuality() // Quality should go down by 2 instead of 1, but not dip below zero
+        assertEquals(3, gildedRose.items.first().sellIn)
+        assertEquals(0, gildedRose.items.first().quality)
+    }
 
     @Test
-    fun `Make sure that the entire TestFixture output is exactly the same as the original`() {
+    fun `Make sure that the entire TestFixture output is correct cfr the docs`() {
         val items = arrayOf(Item("+5 Dexterity Vest", 10, 20), //
                             Item("Aged Brie", 2, 0), //
                             Item("Elixir of the Mongoose", 5, 7), //
@@ -152,7 +152,7 @@ internal class GildedRoseTests {
                             "Backstage passes to a TAFKAL80ETC concert, 14, 21",
                             "Backstage passes to a TAFKAL80ETC concert, 9, 50",
                             "Backstage passes to a TAFKAL80ETC concert, 4, 50",
-                            "Conjured Mana Cake, 2, 5"), items.map { it.toString() })
+                            "Conjured Mana Cake, 2, 4"), items.map { it.toString() })
 
         gildedRose.updateQuality()
         assertEquals(listOf("+5 Dexterity Vest, 8, 18",
@@ -163,7 +163,7 @@ internal class GildedRoseTests {
                             "Backstage passes to a TAFKAL80ETC concert, 13, 22",
                             "Backstage passes to a TAFKAL80ETC concert, 8, 50",
                             "Backstage passes to a TAFKAL80ETC concert, 3, 50",
-                            "Conjured Mana Cake, 1, 4"), items.map { it.toString() })
+                            "Conjured Mana Cake, 1, 2"), items.map { it.toString() })
     }
 
 }

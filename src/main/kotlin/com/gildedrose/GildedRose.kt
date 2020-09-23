@@ -4,40 +4,58 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         items.forEach { item ->
-            if (item.name == "Aged Brie" || item.name == "Backstage passes to a TAFKAL80ETC concert") {
-                increaseValue(item)
-                if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-                    if (item.sellIn < 11) {
-                        increaseValue(item)
-                    }
-                    if (item.sellIn < 6) {
-                        increaseValue(item)
-                    }
-                }
-            } else {
-                if (item.name != "Sulfuras, Hand of Ragnaros") {
-                    decreaseQuality(item)
-                }
-            }
-
-            if (item.name != "Sulfuras, Hand of Ragnaros") {
-                decreaseSellIn(item)
-            }
-
-            if (item.sellIn < 0) {
-                if (item.name == "Aged Brie") {
-                    increaseValue(item)
-                } else {
-                    if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-                        item.quality = item.quality - item.quality
-                    } else {
-                        if (item.name != "Sulfuras, Hand of Ragnaros") {
-                            decreaseQuality(item)
-                        }
-                    }
-                }
+            when (item.name) {
+                "Aged Brie" -> updateAgedBrieQuality(item)
+                "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality(item)
+                "Sulfuras, Hand of Ragnaros" -> updateSulfurasQuality(item)
+                "Conjured Mana Cake" -> updateConjuredQuality(item)
+                else -> updateNormalItemQuality(item)
             }
         }
+    }
+
+    private fun updateAgedBrieQuality(item: Item) {
+        increaseValue(item)
+        decreaseSellIn(item)
+
+        if (item.sellIn < 0) {
+            increaseValue(item)
+        }
+    }
+
+    private fun updateBackstagePassQuality(item: Item) {
+        increaseValue(item)
+        if (item.sellIn < 11) {
+            increaseValue(item)
+        }
+        if (item.sellIn < 6) {
+            increaseValue(item)
+        }
+        decreaseSellIn(item)
+        if (item.sellIn < 0) {
+            item.quality = 0
+        }
+    }
+
+    private fun updateConjuredQuality(item: Item) {
+        decreaseQuality(item)
+        decreaseQuality(item) // Conjured items degrade in quality twice as fast as normal items
+        decreaseSellIn(item)
+        if (item.sellIn < 0) {
+            decreaseQuality(item)
+        }
+    }
+
+    private fun updateNormalItemQuality(item: Item) {
+        decreaseQuality(item)
+        decreaseSellIn(item)
+        if (item.sellIn < 0) {
+            decreaseQuality(item)
+        }
+    }
+
+    private fun updateSulfurasQuality(item: Item) {
+        // No-op: Sulfuras items do not degrade in quality and their sellIn date does not change.
     }
 
     private fun decreaseQuality(item: Item) {
