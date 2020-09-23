@@ -1,5 +1,7 @@
 package com.gildedrose
 
+import com.gildedrose.item.Item
+
 fun main(args: Array<String>) {
     val items = arrayOf(Item("+5 Dexterity Vest", 10, 20), //
                         Item("Aged Brie", 2, 0), //
