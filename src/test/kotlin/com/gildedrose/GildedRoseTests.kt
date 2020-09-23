@@ -130,6 +130,42 @@ internal class GildedRoseTests {
         assertEquals(0, gildedRose.items.first().quality)
     }
 
+    @Test
+    fun `Make sure that the entire TestFixture output is exactly the same as the original`() {
+        val items = arrayOf(Item("+5 Dexterity Vest", 10, 20), //
+                            Item("Aged Brie", 2, 0), //
+                            Item("Elixir of the Mongoose", 5, 7), //
+                            Item("Sulfuras, Hand of Ragnaros", 0, 80), //
+                            Item("Sulfuras, Hand of Ragnaros", -1, 80),
+                            Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+                            Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+                            Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+                            Item("Conjured Mana Cake", 3, 6))
+        val gildedRose = GildedRose(items)
+
+        gildedRose.updateQuality()
+        assertEquals(listOf("+5 Dexterity Vest, 9, 19",
+                            "Aged Brie, 1, 1",
+                            "Elixir of the Mongoose, 4, 6",
+                            "Sulfuras, Hand of Ragnaros, 0, 80",
+                            "Sulfuras, Hand of Ragnaros, -1, 80",
+                            "Backstage passes to a TAFKAL80ETC concert, 14, 21",
+                            "Backstage passes to a TAFKAL80ETC concert, 9, 50",
+                            "Backstage passes to a TAFKAL80ETC concert, 4, 50",
+                            "Conjured Mana Cake, 2, 5"), items.map { it.toString() })
+
+        gildedRose.updateQuality()
+        assertEquals(listOf("+5 Dexterity Vest, 8, 18",
+                            "Aged Brie, 0, 2",
+                            "Elixir of the Mongoose, 3, 5",
+                            "Sulfuras, Hand of Ragnaros, 0, 80",
+                            "Sulfuras, Hand of Ragnaros, -1, 80",
+                            "Backstage passes to a TAFKAL80ETC concert, 13, 22",
+                            "Backstage passes to a TAFKAL80ETC concert, 8, 50",
+                            "Backstage passes to a TAFKAL80ETC concert, 3, 50",
+                            "Conjured Mana Cake, 1, 4"), items.map { it.toString() })
+    }
+
 }
 
 
