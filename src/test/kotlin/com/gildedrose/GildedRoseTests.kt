@@ -116,6 +116,20 @@ internal class GildedRoseTests {
         assertEquals(0, gildedRose.items.first().quality)
     }
 
+    @Test
+    fun `"Conjured" items degrade in Quality twice as fast as normal items`() {
+        val items = arrayOf(Item("Conjured mana cake", 5, 3))
+        val gildedRose = GildedRose(items)
+
+        gildedRose.updateQuality() // Quality should go down by 2 instead of 1
+        assertEquals(4, gildedRose.items.first().sellIn)
+        assertEquals(1, gildedRose.items.first().quality)
+
+        gildedRose.updateQuality() // Quality should go down by 2 instead of 1, but not dip below zero
+        assertEquals(3, gildedRose.items.first().sellIn)
+        assertEquals(0, gildedRose.items.first().quality)
+    }
+
 }
 
 
