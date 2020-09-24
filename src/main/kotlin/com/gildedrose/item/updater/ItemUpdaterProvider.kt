@@ -2,22 +2,17 @@ package com.gildedrose.item.updater
 
 import com.gildedrose.item.Item
 
-object ItemUpdaterProvider {
+class ItemUpdaterProvider {
 
-    private val agedBrieItemUpdater = AgedBrieItemUpdater()
-    private val backstagePassItemUpdater = BackstagePassItemUpdater()
-    private val legendaryItemUpdater = LegendaryItemUpdater()
-    private val conjuredItemUpdater = ConjuredItemUpdater()
-    private val normalItemUpdater = NormalItemUpdater()
+    private val defaultItemUpdater = NormalItemUpdater()
+    private val specificItemUpdaters = mapOf(Item.ITEM_TYPE_AGED_BRIE to AgedBrieItemUpdater(),
+                                             Item.ITEM_TYPE_BACKSTAGE_PASS to BackstagePassItemUpdater(),
+                                             Item.ITEM_TYPE_LEGENDARY to LegendaryItemUpdater(),
+                                             Item.ITEM_TYPE_CONJURED to ConjuredItemUpdater())
 
-    fun provideItemUpdater(item: Item): ItemUpdater {
-        return when (item.name) {
-            "Aged Brie" -> agedBrieItemUpdater
-            "Backstage passes to a TAFKAL80ETC concert" -> backstagePassItemUpdater
-            "Sulfuras, Hand of Ragnaros" -> legendaryItemUpdater
-            "Conjured Mana Cake" -> conjuredItemUpdater
-            else -> normalItemUpdater
-        }
+    fun itemUpdaterFor(item: Item): ItemUpdater {
+        val specificItemUpdater = specificItemUpdaters[item.name]
+        return specificItemUpdater ?: defaultItemUpdater
     }
 
 }
