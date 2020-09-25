@@ -2,10 +2,10 @@
 
 ### Werkwijze / work log
 1. Ik lees Requirements.txt door en werp een eerste blik op de code. Ik run de code een keer en bekijk de output.
-2. Voor ik iets van code wijzig ga ik tests schrijven van de documentatie, zodat mijn changes geen impact hebben op de output. De niet-werkende test doe ik weg. Ik schrijf simpele tests die gewoon elke keer een `GildedRose` aanmaakt, en een paar keer de dagen voort doet lopen per case en het verwachte gedrag controleert. Ook nog een extra test die de `TestFixture` data en output verifiëert.
+2. Voor ik iets van code wijzig ga ik tests schrijven met als basis de documentatie, zodat mijn changes geen impact hebben op de werking. De niet-werkende test doe ik weg. Ik schrijf per type item een simpele test die het verwachte gedrag controleert: elke keer maak ik een `GildedRose` met een item dat het verwachte gedrag en de edge cases controleert. Ik schrijf ook nog een extra test die de `TestFixture` data gebruikt en de output verifiëert met de oorspronkelijke output.
 3. Low hanging fruit fixen, refactoring met hulp van IDE:
     1. For-loop met index naar `forEach` loop, veel leesbaarder
-    2. Extract duplicate code --> ik heb hieruit een `increaseValue()` / `decreaseValue()` met range check gedestilleerd, `decreaseSellIn()`
+    2. Extract duplicate code --> ik heb hieruit een `increaseValue()` / `decreaseValue()` met range check gedestilleerd, alsook `decreaseSellIn()`
     3. If-statements inverten waar nuttig voor duidelijkere logica
     4. Nested if-statements omdraaien in cases waar ik "opmerk" dat daardoor de logica duidelijker leesbaar wordt
     5. Constants aanmaken voor magic numbers en item types. --> In `companion object` van `Item` class, mag dat? 😬
