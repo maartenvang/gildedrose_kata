@@ -2,7 +2,7 @@
 
 ### Werkwijze / work log
 1. Ik lees Requirements.txt door en werp een eerste blik op de code. Ik run de code een keer en bekijk de output.
-2. Voor ik iets van code wijzig ga ik tests schrijven met als basis de documentatie, zodat mijn changes geen impact hebben op de werking. De niet-werkende test doe ik weg. Ik schrijf per type item een simpele test die het verwachte gedrag controleert: elke keer maak ik een `GildedRose` met een item dat het verwachte gedrag en de edge cases controleert. Ik schrijf ook nog een extra test die de `TestFixture` data gebruikt en de output verifiëert met de oorspronkelijke output.
+2. Voor ik iets van code wijzig ga ik tests schrijven met als basis de documentatie, zodat mijn changes geen impact hebben op de werking. De niet-werkende test doe ik weg. Ik schrijf per type item een simpele test die het verwachte gedrag controleert, alsook de edge cases. Ik schrijf ook nog een extra test die de `TestFixture` data gebruikt en de output verifiëert met de oorspronkelijke output.
 3. Low hanging fruit fixen, refactoring met hulp van IDE:
     1. For-loop met index naar `forEach` loop, veel leesbaarder
     2. Extract duplicate code --> ik heb hieruit een `increaseValue()` / `decreaseValue()` met range check gedestilleerd, alsook `decreaseSellIn()`
