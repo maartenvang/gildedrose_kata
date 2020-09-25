@@ -5,16 +5,9 @@ import com.gildedrose.item.Item
 class LegendaryItemUpdater : ItemUpdater {
 
     /**
-     * Legendary items do not update their sellIn value
+     * Legendary items do not update their sellIn value and do not degrade in quality
      */
-    override fun updateSellIn(item: Item) {
-        // No-op
-    }
-
-    /**
-     * Legendary items do not degrade in quality
-     */
-    override fun updateQuality(item: Item) {
+    override fun updateItem(item: Item) {
         // No-op
     }
 

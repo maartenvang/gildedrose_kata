@@ -2,7 +2,7 @@ package com.gildedrose.item.updater
 
 import com.gildedrose.item.Item
 
-class ConjuredItemUpdater : NormalItemUpdater() {
+class ConjuredItemUpdater : BasicItemUpdater() {
 
     /**
      * Conjured items age twice as fast as normal items

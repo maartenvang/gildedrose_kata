@@ -9,10 +9,8 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         items.forEach { item ->
-            itemUpdaterProvider.itemUpdaterFor(item).apply {
-                updateSellIn(item)
-                updateQuality(item)
-            }
+            val itemUpdater = itemUpdaterProvider.itemUpdaterFor(item)
+            itemUpdater.updateItem(item)
         }
     }
 

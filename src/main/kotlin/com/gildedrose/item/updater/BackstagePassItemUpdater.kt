@@ -2,7 +2,7 @@ package com.gildedrose.item.updater
 
 import com.gildedrose.item.Item
 
-class BackstagePassItemUpdater : NormalItemUpdater() {
+class BackstagePassItemUpdater : BasicItemUpdater() {
 
     private companion object {
         private const val TEN_DAYS = 10

@@ -2,7 +2,7 @@ package com.gildedrose.item.updater
 
 import com.gildedrose.item.Item
 
-class AgedBrieItemUpdater : NormalItemUpdater() {
+class AgedBrieItemUpdater : BasicItemUpdater() {
 
     /**
      * Aged brie increases in quality as it ages, doubly so after passing the sell by date

@@ -2,16 +2,21 @@ package com.gildedrose.item.updater
 
 import com.gildedrose.item.Item
 
-open class NormalItemUpdater : ItemUpdater {
+open class BasicItemUpdater : ItemUpdater {
 
-    override fun updateSellIn(item: Item) {
+    override fun updateItem(item: Item) {
+        updateSellIn(item)
+        updateQuality(item)
+    }
+
+    open fun updateSellIn(item: Item) {
         --item.sellIn
     }
 
     /**
      * Normal items degrade in quality each day. After reaching the sellIn date, they degrade twice as fast.
      */
-    override fun updateQuality(item: Item) {
+    open fun updateQuality(item: Item) {
         decreaseQuality(item)
         if (item.sellIn < 0) {
             decreaseQuality(item)

@@ -4,7 +4,7 @@ import com.gildedrose.item.Item
 
 class ItemUpdaterProvider {
 
-    private val defaultItemUpdater = NormalItemUpdater()
+    private val defaultItemUpdater = BasicItemUpdater()
     private val specificItemUpdaters = mapOf(Item.ITEM_TYPE_AGED_BRIE to AgedBrieItemUpdater(),
                                              Item.ITEM_TYPE_BACKSTAGE_PASS to BackstagePassItemUpdater(),
                                              Item.ITEM_TYPE_LEGENDARY to LegendaryItemUpdater(),
