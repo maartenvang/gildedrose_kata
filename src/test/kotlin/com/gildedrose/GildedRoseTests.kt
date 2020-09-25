@@ -8,8 +8,7 @@ internal class GildedRoseTests {
 
     @Test
     fun `Once the sell by date has passed, Quality degrades twice as fast`() {
-        val items = arrayOf(Item("quality 100 item", 2, 100))
-        val gildedRose = GildedRose(items)
+        val gildedRose = createGildedRoseWithItem(Item("quality 100 item", 2, 100))
 
         gildedRose.updateQuality() // First run: quality should degrade and sellIn should go down by one
         assertEquals(1, gildedRose.items.first().sellIn)
@@ -26,8 +25,7 @@ internal class GildedRoseTests {
 
     @Test
     fun `The Quality of an item is never negative`() {
-        val items = arrayOf(Item("quality 1 item", 2, 1))
-        val gildedRose = GildedRose(items)
+        val gildedRose = createGildedRoseWithItem(Item("quality 1 item", 2, 1))
 
         gildedRose.updateQuality() // First run: quality should degrade and sellIn should go down by one
         assertEquals(1, gildedRose.items.first().sellIn)
@@ -43,9 +41,8 @@ internal class GildedRoseTests {
     }
 
     @Test
-    fun `"Aged Brie" actually increases in Quality the older it gets`() {
-        val items = arrayOf(Item("Aged Brie", 2, 1))
-        val gildedRose = GildedRose(items)
+    fun `"Aged Brie" increases in Quality the older it gets`() {
+        val gildedRose = createGildedRoseWithItem(Item("Aged Brie", 2, 1))
 
         gildedRose.updateQuality() // First run: quality should go up for Aged Brie and sellIn should go down by one
         assertEquals(1, gildedRose.items.first().sellIn)
@@ -58,8 +55,7 @@ internal class GildedRoseTests {
 
     @Test
     fun `The Quality of an item is never more than 50`() {
-        val items = arrayOf(Item("Aged Brie", 2, 49))
-        val gildedRose = GildedRose(items)
+        val gildedRose = createGildedRoseWithItem(Item("Aged Brie", 2, 49))
 
         gildedRose.updateQuality() // First run: quality should go up for Aged Brie and sellIn should go down by one
         assertEquals(1, gildedRose.items.first().sellIn)
@@ -72,8 +68,7 @@ internal class GildedRoseTests {
 
     @Test
     fun `"Sulfuras", being a legendary item, never has to be sold or decreases in Quality`() {
-        val items = arrayOf(Item("Sulfuras, Hand of Ragnaros", 100, 100))
-        val gildedRose = GildedRose(items)
+        val gildedRose = createGildedRoseWithItem(Item("Sulfuras, Hand of Ragnaros", 100, 100))
 
         gildedRose.updateQuality() // Update should not trigger any change for sulfuras
         assertEquals(100, gildedRose.items.first().sellIn)
@@ -86,8 +81,7 @@ internal class GildedRoseTests {
 
     @Test
     fun `"Backstage passes", like aged brie, increases in Quality as its SellIn value approaches`() {
-        val items = arrayOf(Item("Backstage passes to a TAFKAL80ETC concert", 7, 20))
-        val gildedRose = GildedRose(items)
+        val gildedRose = createGildedRoseWithItem(Item("Backstage passes to a TAFKAL80ETC concert", 7, 20))
 
         gildedRose.updateQuality() // Quality increases by 2 when there are 10 days or less
         assertEquals(6, gildedRose.items.first().sellIn)
@@ -119,8 +113,7 @@ internal class GildedRoseTests {
 
     @Test
     fun `"Conjured" items degrade in Quality twice as fast as normal items`() {
-        val items = arrayOf(Item("Conjured Mana Cake", 5, 3))
-        val gildedRose = GildedRose(items)
+        val gildedRose = createGildedRoseWithItem(Item("Conjured Mana Cake", 5, 3))
 
         gildedRose.updateQuality() // Quality should go down by 2 instead of 1
         assertEquals(4, gildedRose.items.first().sellIn)
@@ -166,6 +159,8 @@ internal class GildedRoseTests {
                             "Backstage passes to a TAFKAL80ETC concert, 3, 50",
                             "Conjured Mana Cake, 1, 2"), items.map { it.toString() })
     }
+
+    private fun createGildedRoseWithItem(item: Item) = GildedRose(arrayOf(item))
 
 }
 
