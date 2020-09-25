@@ -9,6 +9,9 @@ open class BasicItemUpdater : ItemUpdater {
         updateQuality(item)
     }
 
+    /**
+     * Normal items reduce their sellIn value by one each day.
+     */
     open fun updateSellIn(item: Item) {
         --item.sellIn
     }
